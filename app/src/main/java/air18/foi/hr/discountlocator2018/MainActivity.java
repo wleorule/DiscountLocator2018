@@ -16,6 +16,6 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
         MainDatabase.initDatabase(this);
-        MockData.writeAll();
+        MainDatabase.mockAndLogData();
     }
 }
