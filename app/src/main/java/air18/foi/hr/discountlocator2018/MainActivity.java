@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import air18.foi.hr.database.MainDatabase;
+import air18.foi.hr.database.data.MockData;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
@@ -15,5 +16,6 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
         MainDatabase.initDatabase(this);
+        MockData.writeAll();
     }
 }
