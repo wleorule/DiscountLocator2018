@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="air18.foi.hr.discountlocator2018">
+    package="air18.foi.hr.discountlocator">
 
     <application
         android:allowBackup="true"

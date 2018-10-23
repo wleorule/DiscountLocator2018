@@ -1,4 +1,4 @@
-package air18.foi.hr.discountlocator2018;
+package air18.foi.hr.discountlocator;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("air18.foi.hr.discountlocator2018", appContext.getPackageName());
+        assertEquals("air18.foi.hr.discountlocator", appContext.getPackageName());
     }
 }

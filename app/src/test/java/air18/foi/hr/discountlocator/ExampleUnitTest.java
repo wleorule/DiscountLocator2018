@@ -1,4 +1,4 @@
-package air18.foi.hr.discountlocator2018;
+package air18.foi.hr.discountlocator;
 
 import org.junit.Test;
 
