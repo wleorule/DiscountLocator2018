@@ -24,16 +24,21 @@ public class MainDatabase {
         FlowManager.init(new FlowConfig.Builder(context).build());
     }
 
-    public static void mockAndLogData()
+    public static String[] getDiscounts()
     {
         if(SQLite.select().from(Store.class).queryList().isEmpty()){
             MockData.writeAll();
         }
 
-        List<Discount> discounts = SQLite.select().from(Discount.class).where(Discount_Table.discount.greaterThan(5)).queryList();
+        List<Discount> discounts =
+                SQLite.select().from(Discount.class).where(Discount_Table.discount.greaterThan(5)).queryList();
 
-        for(Discount discount : discounts){
-            System.out.println("Discount: " + discount.getName());
+        //convert to array of strings
+        String[] listItems = new String[discounts.size()];
+        for(int i = 0; i < discounts.size(); i++){
+            listItems[i] = discounts.get(i).getName();
         }
+
+        return listItems;
     }
 }
