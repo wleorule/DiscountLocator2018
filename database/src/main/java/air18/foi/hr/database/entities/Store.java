@@ -1,12 +1,22 @@
 package air18.foi.hr.database.entities;
 
-public class Store {
-    int id;
-    String name;
-    String description;
-    String imgUrl;
-    long longitude;
-    long latitude;
+import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.PrimaryKey;
+import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.structure.BaseModel;
+
+import air18.foi.hr.database.MainDatabase;
+
+@Table(database = MainDatabase.class)
+public class Store extends BaseModel {
+
+    @PrimaryKey(autoincrement = true)
+    @Column int id;
+    @Column String name;
+    @Column String description;
+    @Column String imgUrl;
+    @Column long longitude;
+    @Column long latitude;
 
     public Store() {
     }

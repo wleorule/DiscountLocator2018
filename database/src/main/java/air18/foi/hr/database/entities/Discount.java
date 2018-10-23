@@ -1,15 +1,30 @@
 package air18.foi.hr.database.entities;
 
+import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.ForeignKey;
+import com.raizlabs.android.dbflow.annotation.PrimaryKey;
+import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.structure.BaseModel;
+
 import java.util.Date;
 
-public class Discount {
-    int id;
-    String name;
-    String description;
-    int storeId;
-    Date startDate; // java.util.Date
-    Date endDate;
-    int discount;
+import air18.foi.hr.database.MainDatabase;
+
+@Table(database = MainDatabase.class)
+public class Discount extends BaseModel {
+
+    @PrimaryKey(autoincrement = true)
+    @Column int id;
+    @Column String name;
+    @Column String description;
+    @Column int storeId;
+    @Column Date startDate; // java.util.Date
+    @Column Date endDate;
+    @Column int discount;
+
+    @Column
+    @ForeignKey(tableClass = Store.class)
+    Store store;
 
     public Discount() {
     }
@@ -78,5 +93,13 @@ public class Discount {
 
     public void setDiscount(int discount) {
         this.discount = discount;
+    }
+
+    public Store getStore() {
+        return store;
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
     }
 }
