@@ -3,7 +3,11 @@ package air18.foi.hr.database.entities;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
+import com.raizlabs.android.dbflow.sql.language.Select;
 import com.raizlabs.android.dbflow.structure.BaseModel;
+
+import java.util.List;
 
 import air18.foi.hr.database.MainDatabase;
 
@@ -17,6 +21,7 @@ public class Store extends BaseModel {
     @Column String imgUrl;
     @Column long longitude;
     @Column long latitude;
+    List<Discount> discountList;
 
     public Store() {
     }
@@ -29,7 +34,18 @@ public class Store extends BaseModel {
         this.longitude = longitude;
         this.latitude = latitude;
     }
+    public static List<Store> getAll(){
+        return SQLite.select().from(Store.class).queryList();
+    }
 
+    public List<Discount> getDiscountList(){
+        if(discountList == null || discountList.isEmpty()){
+            discountList = new Select().from(Discount.class)
+                    .where(Discount_Table.storeId.eq(id))
+                    .queryList();
+        }
+        return discountList;
+    }
     public int getId() {
         return id;
     }

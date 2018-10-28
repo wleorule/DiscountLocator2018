@@ -4,9 +4,11 @@ import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.ForeignKey;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import java.util.Date;
+import java.util.List;
 
 import air18.foi.hr.database.MainDatabase;
 
@@ -38,8 +40,11 @@ public class Discount extends BaseModel {
         this.endDate = endDate;
         this.discount = discount;
     }
+    public static List<Discount> getAll() {
+        return SQLite.select().from(Discount.class).queryList();
+    }
 
-    public int getId() {
+        public int getId() {
         return id;
     }
 
