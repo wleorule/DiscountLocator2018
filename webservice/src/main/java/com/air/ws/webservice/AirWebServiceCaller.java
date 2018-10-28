@@ -1,9 +1,12 @@
 package com.air.ws.webservice;
 
 import com.air.ws.webservice.responses.AirWebServiceResponse;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.squareup.okhttp.OkHttpClient;
 
 import java.lang.reflect.Type;
+import java.util.Arrays;
 
 import air18.foi.hr.database.entities.Discount;
 import air18.foi.hr.database.entities.Store;
@@ -49,17 +52,17 @@ public class AirWebServiceCaller {
                 public void onResponse(Response<AirWebServiceResponse> response, Retrofit retrofit) {
                     try {
                         if(response.isSuccess()){
-
                             if(entityType == Store.class){
-                                System.out.println("Got stores...");
+                                System.out.println("store");
+                                handleStores(response);
                             } else if(entityType == Discount.class){
-                                System.out.println("Got discounts...");
+                                System.out.println("discount");
+                                handleDiscounts(response);
                             } else
                             {
                                 System.out.println("Unrecognized class");
                             }
                         }
-
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
@@ -71,5 +74,24 @@ public class AirWebServiceCaller {
             });
         }
 
+
+    }
+    private void handleStores(Response<AirWebServiceResponse> response) {
+        Gson gson = new Gson();
+        Store[] storeItems = gson.fromJson(response.body().getItems(), Store[].class);
+        if(mAirWebServiceHandler != null){
+            mAirWebServiceHandler.onDataArrived(Arrays.asList(storeItems), true, response.body().getTimeStamp());
+
+        }
+    }
+
+    private void handleDiscounts(Response<AirWebServiceResponse> response) {
+        Gson gson = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd") // response JSON format
+                .create();
+        Discount[] discountItems = gson.fromJson(response.body().getItems(), Discount[].class);
+        if(mAirWebServiceHandler != null){
+            mAirWebServiceHandler.onDataArrived(Arrays.asList(discountItems), true, response.body().getTimeStamp());
+        }
     }
 }
