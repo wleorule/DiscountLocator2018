@@ -7,12 +7,15 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.air.ws.core.DataLoadedListener;
+import com.air.ws.core.DataLoader;
 
 import java.util.ArrayList;
 
 import air18.foi.hr.database.MainDatabase;
 import air18.foi.hr.database.entities.Discount;
 import air18.foi.hr.database.entities.Store;
+import air18.foi.hr.discountlocator.loaders.DbDataLoader;
+import air18.foi.hr.discountlocator.loaders.WsDataLoader;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -33,10 +36,15 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
 
     @OnClick(R.id.test_button)
     public void buttonClicked(View view){
-        final String[] listItems = MainDatabase.getDiscounts();
-
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listItems);
-        mListView.setAdapter(adapter);
+        DataLoader dataLoader;
+        if(Store.getAll().isEmpty()){
+            System.out.println("Loading web data");
+            dataLoader = new WsDataLoader();
+        } else {
+            System.out.println("Loading local data");
+            dataLoader = new DbDataLoader();
+        }
+        dataLoader.loadData(this);
     }
 
     @Override
