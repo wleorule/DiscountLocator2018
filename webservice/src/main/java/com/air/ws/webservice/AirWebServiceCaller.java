@@ -14,13 +14,15 @@ import retrofit.Response;
 import retrofit.Retrofit;
 
 public class AirWebServiceCaller {
+    AirWebServiceHandler mAirWebServiceHandler;
     // retrofit object
     Retrofit retrofit;
     // base URL of the web service
     private final String baseUrl = "http://cortex.foi.hr/mtl/courses/air/";
 
     // constructor
-    public AirWebServiceCaller(){
+    public AirWebServiceCaller(AirWebServiceHandler airWebServiceHandler){
+        this.mAirWebServiceHandler = airWebServiceHandler;
 
         OkHttpClient client = new OkHttpClient();
 
