@@ -93,4 +93,8 @@ public class Store extends BaseModel {
     public void setLatitude(long latitude) {
         this.latitude = latitude;
     }
+
+    public static Store getStoreById(int id){
+        return SQLite.select().from(Store.class).where(Store_Table.id.eq(id)).querySingle();
+    }
 }
