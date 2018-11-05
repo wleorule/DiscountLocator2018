@@ -20,6 +20,7 @@
             android:name=".DiscountDetailsActivity"
             android:label="@string/title_activity_discount_details">
         </activity>
+        <activity android:name=".AppPreferenceActivity"></activity>
     </application>
 
 </manifest>
