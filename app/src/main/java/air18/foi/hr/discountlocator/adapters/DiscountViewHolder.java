@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.bignerdranch.expandablerecyclerview.ChildViewHolder;
 
 import air18.foi.hr.database.entities.Discount;
+import air18.foi.hr.discountlocator.DiscountDetailsActivity;
 import air18.foi.hr.discountlocator.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,5 +53,9 @@ public class DiscountViewHolder extends ChildViewHolder {
     public void discountSelected(){
         Bundle args = new Bundle();
         args.putInt("id", mDiscount.getId());
+
+        Intent intent = new Intent(itemView.getContext(), DiscountDetailsActivity.class);
+        intent.putExtras(args);
+        itemView.getContext().startActivity(intent);
     }
 }

@@ -107,4 +107,8 @@ public class Discount extends BaseModel {
     public void setStore(Store store) {
         this.store = store;
     }
+
+    public static Discount getDiscountById(int id){
+        return SQLite.select().from(Discount.class).where(Discount_Table.id.eq(id)).querySingle();
+    }
 }
