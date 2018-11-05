@@ -2,6 +2,8 @@ package air18.foi.hr.discountlocator;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -10,10 +12,13 @@ import com.air.ws.core.DataLoadedListener;
 import com.air.ws.core.DataLoader;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import air18.foi.hr.database.MainDatabase;
 import air18.foi.hr.database.entities.Discount;
 import air18.foi.hr.database.entities.Store;
+import air18.foi.hr.discountlocator.adapters.ExpandableStoreItem;
+import air18.foi.hr.discountlocator.adapters.StoreRecyclerAdapter;
 import air18.foi.hr.discountlocator.loaders.DbDataLoader;
 import air18.foi.hr.discountlocator.loaders.WsDataLoader;
 import butterknife.BindView;
@@ -22,20 +27,18 @@ import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity implements DataLoadedListener {
 
-    @BindView(R.id.discount_list)
-    ListView mListView;
+    StoreRecyclerAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        ButterKnife.bind(this);
         MainDatabase.initDatabase(this);
+        loadData();
     }
 
-    @OnClick(R.id.test_button)
-    public void buttonClicked(View view){
+
+    public void loadData(){
         DataLoader dataLoader;
         if(Store.getAll().isEmpty()){
             System.out.println("Loading web data");
@@ -55,8 +58,5 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
         for (int i = 0; i < discounts.size(); i++) {
             listItems[i] = discounts.get(i).getName();
         }
-
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listItems);
-        mListView.setAdapter(adapter);
     }
 }
