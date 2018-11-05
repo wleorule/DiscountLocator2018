@@ -52,11 +52,19 @@ public class MainActivity extends AppCompatActivity implements DataLoadedListene
 
     @Override
     public void onDataLoaded(ArrayList<Store> stores, ArrayList<Discount> discounts) {
-        System.out.println("Data is here... ");
-        String[] listItems = new String[discounts.size()];
+        List<ExpandableStoreItem> storeItems = new ArrayList<>();
 
-        for (int i = 0; i < discounts.size(); i++) {
-            listItems[i] = discounts.get(i).getName();
+        if(stores != null){
+
+            for(Store store : stores)
+                storeItems.add(new ExpandableStoreItem(store));
+
+            RecyclerView mRecycler = (RecyclerView) findViewById(R.id.main_recycler);
+            if(mRecycler != null){
+                mAdapter = new StoreRecyclerAdapter(this, storeItems);
+                mRecycler.setAdapter(mAdapter);
+                mRecycler.setLayoutManager(new LinearLayoutManager(this));
+            }
         }
     }
 }
