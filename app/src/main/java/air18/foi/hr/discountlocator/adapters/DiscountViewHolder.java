@@ -4,16 +4,20 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.TextView;
 
+import com.air.ws.core.CurrentActivity;
 import com.bignerdranch.expandablerecyclerview.ChildViewHolder;
 
 import air18.foi.hr.database.entities.Discount;
 import air18.foi.hr.database.entities.Store;
-import air18.foi.hr.discountlocator.DiscountDetailsActivity;
 import air18.foi.hr.discountlocator.R;
+import air18.foi.hr.discountlocator.fragments.DiscountDetailsFragment;
+import air18.foi.hr.discountlocator.fragments.DiscountListFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -58,9 +62,12 @@ public class DiscountViewHolder extends ChildViewHolder {
         Bundle args = new Bundle();
         args.putInt("id", mDiscount.getId());
 
-        Intent intent = new Intent(itemView.getContext(), DiscountDetailsActivity.class);
-        intent.putExtras(args);
-        itemView.getContext().startActivity(intent);
+        DiscountDetailsFragment mDiscountDetailsFragment = new DiscountDetailsFragment();
+        mDiscountDetailsFragment.setArguments(args);
+        FragmentManager mFragmentManager = CurrentActivity.getActivity().getSupportFragmentManager();
+        FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+        mFragmentTransaction.replace(R.id.fragment_container, mDiscountDetailsFragment);
+        mFragmentTransaction.commit();
     }
 
     @OnLongClick

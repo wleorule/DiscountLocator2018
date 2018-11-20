@@ -11,6 +11,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.air.ws.core.CurrentActivity;
+
 import air18.foi.hr.database.MainDatabase;
 import air18.foi.hr.discountlocator.fragments.DiscountListFragment;
 import air18.foi.hr.discountlocator.helper.Util;
@@ -33,7 +35,13 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         PreferenceManager.getDefaultSharedPreferences(this)
                 .registerOnSharedPreferenceChangeListener(this);
 
+        setCurrentActivity();
+
         showMainFragment();
+    }
+
+    private void setCurrentActivity() {
+        CurrentActivity.setActivity(this);
     }
 
     private void showMainFragment() {
