@@ -12,4 +12,8 @@
     <string name="username">Korisničko ime</string>
     <string name="load_data_from">Uvijek učitaj podatke s web servisa?</string>
     <string name="app_lang_pref">Postavke jezika</string>
+
+    <string name="navigation_drawer_open">Otvara izbornik</string>
+    <string name="navigation_drawer_close">Zatvara izbornik</string>
+
 </resources>

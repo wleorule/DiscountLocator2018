@@ -3,8 +3,13 @@ package air18.foi.hr.discountlocator;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
@@ -18,13 +23,16 @@ import air18.foi.hr.database.MainDatabase;
 import air18.foi.hr.discountlocator.fragments.DiscountListFragment;
 import air18.foi.hr.discountlocator.helper.Util;
 
-public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener, NavigationView.OnNavigationItemSelectedListener {
 
     private Util util = new Util();
     DiscountListFragment mDiscountListFragment;
     FragmentManager mFragmentManager;
     FragmentTransaction mFragmentTransaction;
     Toolbar toolbar;
+    DrawerLayout drawerLayout;
+    ActionBarDrawerToggle drawerToggle;
+    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +60,15 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        drawerLayout = findViewById(R.id.drawer_layout);
+        drawerToggle = new ActionBarDrawerToggle(
+                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(drawerToggle);
+        drawerToggle.syncState();
+
+        navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
     private void showMainFragment() {
@@ -84,5 +101,17 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
         util.setLanguage(this);
         this.recreate();
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        // Handle navigation view menuItem clicks here.
+        switch(menuItem.getItemId())
+        {
+            //handle cases
+        }
+
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
     }
 }
