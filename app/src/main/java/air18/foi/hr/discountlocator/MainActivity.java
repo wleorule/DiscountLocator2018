@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.PreferenceManager;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     DiscountListFragment mDiscountListFragment;
     FragmentManager mFragmentManager;
     FragmentTransaction mFragmentTransaction;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +39,19 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         setCurrentActivity();
 
+        initializeLayout();
+
         showMainFragment();
     }
 
     private void setCurrentActivity() {
         CurrentActivity.setActivity(this);
+    }
+
+    private void initializeLayout()
+    {
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
     }
 
     private void showMainFragment() {
