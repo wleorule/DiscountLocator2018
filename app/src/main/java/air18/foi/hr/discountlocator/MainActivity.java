@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         setCurrentActivity();
 
-        //showMainFragment();
+        showMainFragment();
     }
 
     private void setCurrentActivity() {
