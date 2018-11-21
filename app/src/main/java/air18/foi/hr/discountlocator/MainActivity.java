@@ -24,7 +24,7 @@ import air18.foi.hr.database.MainDatabase;
 import air18.foi.hr.discountlocator.fragments.DiscountListFragment;
 import air18.foi.hr.discountlocator.helper.Util;
 
-public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener, NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener, NavigationView.OnNavigationItemSelectedListener, FragmentManager.OnBackStackChangedListener {
 
     private Util util = new Util();
     DiscountListFragment mDiscountListFragment;
@@ -50,6 +50,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         initializeLayout();
 
+        setBackStackChangeListener();
+
         showMainFragment();
     }
 
@@ -70,6 +72,11 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void setBackStackChangeListener()
+    {
+        getSupportFragmentManager().addOnBackStackChangedListener(this);
     }
 
     private void showMainFragment() {
@@ -129,4 +136,10 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         drawerToggle.onConfigurationChanged(newConfig);
     }
 
+    @Override
+    public void onBackStackChanged() {
+        drawerToggle.setDrawerIndicatorEnabled(mFragmentManager.getBackStackEntryCount() == 0);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(mFragmentManager.getBackStackEntryCount() > 0);
+        drawerToggle.syncState();
+    }
 }
