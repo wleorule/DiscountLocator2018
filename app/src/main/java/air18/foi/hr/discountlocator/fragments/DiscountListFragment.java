@@ -32,6 +32,9 @@ public class DiscountListFragment extends Fragment implements NavigationItem {
     private List<Store> stores;
     private List<Discount> discounts;
 
+    private boolean dataReadyFlag;
+    private boolean moduleReadyFlag;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -42,7 +45,8 @@ public class DiscountListFragment extends Fragment implements NavigationItem {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //loadData();
+        moduleReadyFlag = true;
+        tryToDisplayData();
     }
 
     @Override
@@ -62,9 +66,16 @@ public class DiscountListFragment extends Fragment implements NavigationItem {
 
     @Override
     public void setData(List<Store> stores, List<Discount> discounts) {
-
         this.stores = stores;
         this.discounts = discounts;
+
+        dataReadyFlag = true;
+        tryToDisplayData();
+    }
+
+    private void tryToDisplayData() {
+        if (dataReadyFlag && moduleReadyFlag)
+            displayData();
     }
 
     private void displayData()
