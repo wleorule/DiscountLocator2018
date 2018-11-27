@@ -1,5 +1,7 @@
 package air18.foi.hr.discountlocator.fragments;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.air.ws.core.DataLoadedListener;
 import com.air.ws.core.DataLoader;
+import com.air.ws.core.NavigationItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +27,10 @@ import air18.foi.hr.discountlocator.adapters.StoreRecyclerAdapter;
 import air18.foi.hr.discountlocator.loaders.DbDataLoader;
 import air18.foi.hr.discountlocator.loaders.WsDataLoader;
 
-public class DiscountListFragment extends Fragment implements DataLoadedListener {
+public class DiscountListFragment extends Fragment implements DataLoadedListener, NavigationItem {
     StoreRecyclerAdapter mAdapter;
+    private List<Store> stores;
+    private List<Discount> discounts;
 
     @Nullable
     @Override
@@ -68,5 +73,27 @@ public class DiscountListFragment extends Fragment implements DataLoadedListener
                 mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
             }
         }
+    }
+
+    @Override
+    public Fragment getFragment() {
+        return this;
+    }
+
+    @Override
+    public String getName(Context context) {
+        return context.getString(R.string.menu_list);
+    }
+
+    @Override
+    public Drawable getIcon(Context context) {
+        return context.getDrawable(android.R.drawable.ic_menu_agenda);
+    }
+
+    @Override
+    public void setData(List<Store> stores, List<Discount> discounts) {
+
+        this.stores = stores;
+        this.discounts = discounts;
     }
 }
