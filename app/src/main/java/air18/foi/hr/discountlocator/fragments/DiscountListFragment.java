@@ -27,7 +27,7 @@ import air18.foi.hr.discountlocator.adapters.StoreRecyclerAdapter;
 import air18.foi.hr.discountlocator.loaders.DbDataLoader;
 import air18.foi.hr.discountlocator.loaders.WsDataLoader;
 
-public class DiscountListFragment extends Fragment implements DataLoadedListener, NavigationItem {
+public class DiscountListFragment extends Fragment implements NavigationItem {
     StoreRecyclerAdapter mAdapter;
     private List<Store> stores;
     private List<Discount> discounts;
@@ -43,24 +43,6 @@ public class DiscountListFragment extends Fragment implements DataLoadedListener
         super.onViewCreated(view, savedInstanceState);
 
         //loadData();
-    }
-
-    @Override
-    public void onDataLoaded(ArrayList<Store> stores, ArrayList<Discount> discounts) {
-        List<ExpandableStoreItem> storeItems = new ArrayList<>();
-
-        if(stores != null){
-
-            for(Store store : stores)
-                storeItems.add(new ExpandableStoreItem(store));
-
-            RecyclerView mRecycler = (RecyclerView) getActivity().findViewById(R.id.main_recycler);
-            if(mRecycler != null){
-                mAdapter = new StoreRecyclerAdapter(getActivity(), storeItems);
-                mRecycler.setAdapter(mAdapter);
-                mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-            }
-        }
     }
 
     @Override
@@ -83,5 +65,23 @@ public class DiscountListFragment extends Fragment implements DataLoadedListener
 
         this.stores = stores;
         this.discounts = discounts;
+    }
+
+    private void displayData()
+    {
+        List<ExpandableStoreItem> storeItems = new ArrayList<>();
+
+        if(stores != null){
+
+            for(Store store : stores)
+                storeItems.add(new ExpandableStoreItem(store));
+
+            RecyclerView mRecycler = getActivity().findViewById(R.id.main_recycler);
+            if(mRecycler != null){
+                mAdapter = new StoreRecyclerAdapter(getActivity(), storeItems);
+                mRecycler.setAdapter(mAdapter);
+                mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+            }
+        }
     }
 }
