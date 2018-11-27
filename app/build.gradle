@@ -37,6 +37,7 @@ dependencies {
     implementation project(':database')
     implementation project(':core')
     implementation project(':webservice')
+    implementation project(':map')
 
     //Butterknife
     implementation 'com.jakewharton:butterknife:8.8.1'
