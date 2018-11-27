@@ -3,8 +3,10 @@ package air18.foi.hr.discountlocator;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 
 import com.air.ws.core.NavigationItem;
 
@@ -82,5 +84,15 @@ public class NavigationManager {
                 .replace(R.id.fragment_container, module.getFragment())
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .commit();
+    }
+
+    public void selectNavigationItem(MenuItem menuItem) {
+        if (!menuItem.isChecked()) {
+            menuItem.setChecked(true);
+            drawerLayout.closeDrawer(GravityCompat.START);
+
+            NavigationItem selectedItem = navigationItems.get(menuItem.getItemId());
+            startModule(selectedItem);
+        }
     }
 }

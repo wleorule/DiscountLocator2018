@@ -123,10 +123,15 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         // Handle navigation view menuItem clicks here.
         switch(menuItem.getItemId())
         {
-            //handle cases
+            case R.id.menu_about:
+                //do something
+                break;
+            default:
+                NavigationManager.getInstance().selectNavigationItem(menuItem);
+                break;
         }
 
-        drawerLayout.closeDrawer(GravityCompat.START);
+        //drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 
