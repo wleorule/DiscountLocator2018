@@ -1,6 +1,8 @@
 package air18.foi.hr.discountlocator;
 
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 
@@ -65,5 +67,20 @@ public class NavigationManager {
                     .setCheckable(true)
                     .setIcon(item.getIcon(activity));
         }
+    }
+
+    public void startMainModule() {
+        NavigationItem mainModule = navigationItems != null ? navigationItems.get(0) : null;
+        if (mainModule != null)
+            startModule(mainModule);
+    }
+
+    private void startModule(NavigationItem module) {
+        FragmentManager mFragmentManager = activity.getSupportFragmentManager();
+        mFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        mFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, module.getFragment())
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .commit();
     }
 }

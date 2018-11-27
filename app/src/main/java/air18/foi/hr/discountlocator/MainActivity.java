@@ -28,9 +28,6 @@ import air18.foi.hr.discountlocator.helper.Util;
 public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener, NavigationView.OnNavigationItemSelectedListener, FragmentManager.OnBackStackChangedListener {
 
     private Util util = new Util();
-    DiscountListFragment mDiscountListFragment;
-    FragmentManager mFragmentManager;
-    FragmentTransaction mFragmentTransaction;
     Toolbar toolbar;
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle drawerToggle;
@@ -54,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         setBackStackChangeListener();
 
         initializeNavigationManager();
-        showMainFragment();
+        startMainModule();
     }
 
     private void setCurrentActivity() {
@@ -93,12 +90,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                 R.id.dynamic_group);
     }
 
-    private void showMainFragment() {
-        mDiscountListFragment = new DiscountListFragment();
-        mFragmentManager = getSupportFragmentManager();
-        mFragmentTransaction = mFragmentManager.beginTransaction();
-        mFragmentTransaction.replace(R.id.fragment_container, mDiscountListFragment);
-        mFragmentTransaction.commit();
+    private void startMainModule() {
+        NavigationManager.getInstance().startMainModule();
     }
 
     @Override
@@ -152,8 +145,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     @Override
     public void onBackStackChanged() {
-        drawerToggle.setDrawerIndicatorEnabled(mFragmentManager.getBackStackEntryCount() == 0);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(mFragmentManager.getBackStackEntryCount() > 0);
+        drawerToggle.setDrawerIndicatorEnabled(getSupportFragmentManager().getBackStackEntryCount() == 0);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(getSupportFragmentManager().getBackStackEntryCount() > 0);
         drawerToggle.syncState();
     }
 
@@ -171,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     View.OnClickListener navigationClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if(mFragmentManager.getBackStackEntryCount() == 0) {
+            if(getSupportFragmentManager().getBackStackEntryCount() == 0) {
                 drawerLayout.openDrawer(GravityCompat.START);
             }
             else{
