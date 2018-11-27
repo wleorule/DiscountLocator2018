@@ -42,19 +42,7 @@ public class DiscountListFragment extends Fragment implements DataLoadedListener
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        loadData();
-    }
-
-    public void loadData(){
-        DataLoader dataLoader;
-        if(Store.getAll().isEmpty()){
-            System.out.println("Loading web data");
-            dataLoader = new WsDataLoader();
-        } else {
-            System.out.println("Loading local data");
-            dataLoader = new DbDataLoader();
-        }
-        dataLoader.loadData(this);
+        //loadData();
     }
 
     @Override
