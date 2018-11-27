@@ -84,6 +84,7 @@ public class NavigationManager {
                 .replace(R.id.fragment_container, module.getFragment())
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .commit();
+        DataManager.getInstance().sendData(module);
     }
 
     public void selectNavigationItem(MenuItem menuItem) {
