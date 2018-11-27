@@ -17,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.air.ws.core.CurrentActivity;
 
@@ -69,6 +70,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                 this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
+
+        //this listener has to be after the drawerToggle is initialized
+        toolbar.setNavigationOnClickListener(navigationClick);
 
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -142,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         getSupportActionBar().setDisplayHomeAsUpEnabled(mFragmentManager.getBackStackEntryCount() > 0);
         drawerToggle.syncState();
     }
-    
+
     @Override
     public void onBackPressed() {
         if(drawerLayout.isDrawerOpen(GravityCompat.START)){
@@ -152,4 +156,18 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             super.onBackPressed();
         }
     }
+
+
+    View.OnClickListener navigationClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if(mFragmentManager.getBackStackEntryCount() == 0) {
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+            else{
+                onBackPressed();
+            }
+        }
+    };
+
 }
