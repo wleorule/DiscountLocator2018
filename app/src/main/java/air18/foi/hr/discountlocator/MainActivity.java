@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         setBackStackChangeListener();
 
+        initializeNavigationManager();
         showMainFragment();
     }
 
@@ -81,6 +82,15 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     private void setBackStackChangeListener()
     {
         getSupportFragmentManager().addOnBackStackChangedListener(this);
+    }
+
+    private void initializeNavigationManager() {
+        NavigationManager nm = NavigationManager.getInstance();
+        nm.setDrawerDependencies(
+                this,
+                navigationView,
+                drawerLayout,
+                R.id.dynamic_group);
     }
 
     private void showMainFragment() {
