@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.air.ws.core.NavigationItem;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -96,11 +97,20 @@ public class MapFragment extends Fragment implements NavigationItem, OnMapReadyC
     private void displayData()
     {
         if(stores != null){
+            boolean cameraReady = false;
             for(Store store : stores)
             {
                 // Add a markers
                 LatLng position = new LatLng(store.getLatitude() / 1000000d, store.getLongitude() / 1000000d);
                 mMap.addMarker(new MarkerOptions().position(position).title(store.getName()));
+
+                // Move the camera
+                if (!cameraReady)
+                {
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(position));
+                    mMap.moveCamera(CameraUpdateFactory.zoomTo(12));
+                    cameraReady = true;
+                }
             }
         }
     }
