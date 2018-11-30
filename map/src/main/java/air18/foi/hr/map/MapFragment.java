@@ -1,10 +1,14 @@
 package air18.foi.hr.map;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +35,7 @@ public class MapFragment extends Fragment implements NavigationItem, OnMapReadyC
 
     private boolean dataReadyFlag;
     private boolean moduleReadyFlag;
+    private int MY_LOCATION_REQUEST_CODE = 1;
 
     @Nullable
     @Override
@@ -84,9 +89,38 @@ public class MapFragment extends Fragment implements NavigationItem, OnMapReadyC
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        showUserLocation();
 
         moduleReadyFlag = true;
         tryToDisplayData();
+    }
+
+    private void showUserLocation()
+    {
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+        {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_LOCATION_REQUEST_CODE);
+        }
+        else
+        {
+            mMap.setMyLocationEnabled(true);
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == MY_LOCATION_REQUEST_CODE) {
+            if (permissions.length == 1 &&
+                    permissions[0].equals(Manifest.permission.ACCESS_FINE_LOCATION) &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                mMap.setMyLocationEnabled(true);
+            }
+            else {
+                // Permission was denied. Display an error message.
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     private void tryToDisplayData() {
