@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 
+def dbflow_version = "4.2.4"
 android {
     compileSdkVersion 28
 
@@ -37,4 +38,7 @@ dependencies {
 
     //Maps
     implementation 'com.google.android.gms:play-services-maps:16.0.0'
+
+    //DBFlow
+    implementation "com.github.Raizlabs.DBFlow:dbflow:${dbflow_version}"
 }

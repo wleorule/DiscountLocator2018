@@ -14,6 +14,8 @@ import com.air.ws.core.NavigationItem;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
 
@@ -93,5 +95,13 @@ public class MapFragment extends Fragment implements NavigationItem, OnMapReadyC
 
     private void displayData()
     {
+        if(stores != null){
+            for(Store store : stores)
+            {
+                // Add a markers
+                LatLng position = new LatLng(store.getLatitude() / 1000000d, store.getLongitude() / 1000000d);
+                mMap.addMarker(new MarkerOptions().position(position).title(store.getName()));
+            }
+        }
     }
 }
