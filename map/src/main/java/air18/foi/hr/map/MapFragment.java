@@ -26,6 +26,9 @@ public class MapFragment extends Fragment implements NavigationItem, OnMapReadyC
     private GoogleMap mMap;
     private com.google.android.gms.maps.SupportMapFragment mapFragment;
 
+    private boolean dataReadyFlag;
+    private boolean moduleReadyFlag;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -61,6 +64,9 @@ public class MapFragment extends Fragment implements NavigationItem, OnMapReadyC
 
         this.stores = stores;
         this.discounts = discounts;
+
+        dataReadyFlag = true;
+        tryToDisplayData();
     }
 
     /**
@@ -75,5 +81,17 @@ public class MapFragment extends Fragment implements NavigationItem, OnMapReadyC
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
+        moduleReadyFlag = true;
+        tryToDisplayData();
+    }
+
+    private void tryToDisplayData() {
+        if (dataReadyFlag && moduleReadyFlag)
+            displayData();
+    }
+
+    private void displayData()
+    {
     }
 }
