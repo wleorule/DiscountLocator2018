@@ -54,11 +54,14 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         setBackStackChangeListener();
 
+
+
         AppCenter.start(getApplication(), "7b43a05f-6e6d-4c9e-9114-791813650ef8",
                 Analytics.class, Crashes.class);
 
         initializeNavigationManager();
         startMainModule();
+        throw new RuntimeException("This is a crash");
     }
 
     private void setCurrentActivity() {
