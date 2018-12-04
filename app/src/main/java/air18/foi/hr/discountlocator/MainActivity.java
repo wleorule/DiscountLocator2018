@@ -61,7 +61,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         initializeNavigationManager();
         startMainModule();
-        throw new RuntimeException("This is a crash");
     }
 
     private void setCurrentActivity() {
